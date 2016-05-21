@@ -5738,7 +5738,7 @@ var Pudding =
     abi: [{"constant":true,"inputs":[],"name":"getMyOwner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"iAdd","type":"address"}],"name":"setMyOwner","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"iVar","type":"uint256"}],"name":"setMyVar","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getMyVar","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}],
     binary: "606060405260008054600160a060020a0319163317815560015560d18060256000396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
     unlinked_binary: "606060405260008054600160a060020a0319163317815560015560d18060256000396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
-    address: "0x8456b53bd716bf085de533bc54683d61f4365795",
+    address: "0xc9b7966d92af0f35e7ae442c4e58b2d7f97bb13d",
     generated_with: "2.0.6",
     contract_name: "Smart"
   };
@@ -5799,6 +5799,15 @@ var Pudding =
 
 
 
+/* General Javascript to add element on the fly */
+function addElement(parentId, elementTag, elementId, html) {
+    var p = document.getElementById(parentId);
+    var newElement = document.createElement(elementTag);
+    newElement.setAttribute('id', elementId);
+    newElement.innerHTML = html;
+    p.appendChild(newElement);
+}
+
 function getSmartContract() {
   var ABI  = [{"constant":true,"inputs":[],"name":"getMyOwner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"iAdd","type":"address"}],"name":"setMyOwner","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"iVar","type":"uint256"}],"name":"setMyVar","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getMyVar","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}];
   
@@ -5807,21 +5816,27 @@ function getSmartContract() {
 }
 
 function getSmartAddress() {
-    var theSmart = getSmartContract();
-    var theSmartAddress = theSmart.address;
-    return theSmartAddress;
+  var theSmart = getSmartContract();
+  var theSmartAddress = theSmart.address;
+  return theSmartAddress;
 };
 
 function getSmartBalance() {
-    var theSmartAddress = getSmartAddress();
-    var theSmartBalance = web3.fromWei(web3.eth.getBalance(theSmartAddress));
-    return theSmartBalance;
+  var theSmartAddress = getSmartAddress();
+  var theSmartBalance = web3.fromWei(web3.eth.getBalance(theSmartAddress));
+  return theSmartBalance;
 };
 
 function getSmartOwner() {
-    var theSmart = getSmartContract();
-    var theSmartOwner = theSmart.getMyOwner.call();
-    return theSmartOwner;
+  var theSmart = getSmartContract();
+  var theSmartOwner = theSmart.getMyOwner.call();
+  return theSmartOwner;
+};
+
+function getSmartVar() {
+  var theSmart = getSmartContract();
+  var theSmartVar = theSmart.getMyVar.call();
+  return theSmartVar;
 };
 
 function setSmartOwner() {
@@ -5830,16 +5845,31 @@ function setSmartOwner() {
   theSmart.setMyOwner.sendTransaction(theSmartOwner, {from: web3.eth.coinbase, gas: 1000000});
 };
 
-function getSmartVar() {
-    var theSmart = getSmartContract();
-    var theSmartVar = theSmart.getMyVar.call();
-    return theSmartVar;
-};
-
 function setSmartVar() {
   var theSmart = getSmartContract();
   var theSmartVar = document.getElementById("iSmartVar").value;
   theSmart.setMyVar.sendTransaction(theSmartVar, {from: web3.eth.coinbase, gas: 1000000});  
+};
+
+function sendEther() {
+  var fromAddress = document.getElementById("iFromAddress").value;
+  var toAddress = document.getElementById("iToAddress").value;
+  var etherAmount = document.getElementById("iEtherAmount").value;
+  web3.eth.sendTransaction({from: fromAddress, to: toAddress, value: web3.toWei(etherAmount, "ether")})
+};
+
+function refreshBalances() { 
+  var i =0;
+  var html;
+  var theAccount;
+  var theBalance; 
+  web3.eth.accounts.forEach( function(e){
+    theAccount = web3.eth.accounts[i];
+    theBalance = web3.fromWei(web3.eth.getBalance(theAccount), "ether");  
+    html = '<h4>Account: ' + theAccount + ' Balance: ' + theBalance + '</h4>';
+    addElement('userAccounts', 'p', 'userAccount_' + i, html);
+    i++; 
+  })
 };
 
 window.onload = function() {
@@ -5853,7 +5883,8 @@ window.onload = function() {
   $("#theSmartBalance").html(theSmartBalance.toNumber());
   $("#theSmartOwner").html(theSmartOwner);
   $("#theSmartVar").html(theSmartVar.toNumber());
-  
+  refreshBalances();
+    
 };
 
 
