@@ -1,10 +1,10 @@
 contract Smart {
-    address myOwner;
+    address private myOwner;
     uint private myVar;
 
-	function Smart() {
-        myOwner = msg.sender; // msg.sender being the address which created the contract.
-        myVar = 0;
+	function Smart(address iOwner, uint iVar) {
+        myOwner = iOwner;
+        myVar = iVar;
 	}
     
     // Getters

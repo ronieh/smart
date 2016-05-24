@@ -5735,10 +5735,10 @@ var Pudding =
 (function() {
 
   var contract_data = {
-    abi: [{"constant":true,"inputs":[],"name":"getMyOwner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"iAdd","type":"address"}],"name":"setMyOwner","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"iVar","type":"uint256"}],"name":"setMyVar","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getMyVar","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}],
-    binary: "606060405260008054600160a060020a0319163317815560015560d18060256000396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
-    unlinked_binary: "606060405260008054600160a060020a0319163317815560015560d18060256000396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
-    address: "0xc9b7966d92af0f35e7ae442c4e58b2d7f97bb13d",
+    abi: [{"constant":true,"inputs":[],"name":"getMyOwner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"iAdd","type":"address"}],"name":"setMyOwner","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"iVar","type":"uint256"}],"name":"setMyVar","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getMyVar","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"inputs":[{"name":"iOwner","type":"address"},{"name":"iVar","type":"uint256"}],"type":"constructor"}],
+    binary: "6060604081815280610109833960a090525160805160008054600160a060020a031916909217825560015560d190819061003890396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
+    unlinked_binary: "6060604081815280610109833960a090525160805160008054600160a060020a031916909217825560015560d190819061003890396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
+    address: "0xba989a774aa75a700b4c7d5e7d34849166b3726a",
     generated_with: "2.0.6",
     contract_name: "Smart"
   };
@@ -5795,6 +5795,73 @@ var Pudding =
 })();
 ;
 
+// Factory "morphs" into a Pudding class.
+// The reasoning is that calling load in each context
+// is cumbersome.
+
+(function() {
+
+  var contract_data = {
+    abi: [{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getSmarts","outputs":[{"name":"","type":"address[]"}],"type":"function"},{"constant":false,"inputs":[{"name":"iOwner","type":"address"},{"name":"iVar","type":"uint256"}],"name":"createSmart","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}],
+    binary: "606060405260008054600160a060020a031916331790556102d0806100246000396000f3606060405260e060020a600035046383197ef08114610031578063b5457e6514610059578063c6b8a8b8146100ba575b005b61002f60005433600160a060020a03908116911614156101c557600054600160a060020a0316ff5b61013a60006060908152600180546020810260a09081016040526080828152929190828280156100b057602002820191906000526020600020905b8154600160a060020a0316815290840190602001808311610094575b5050505050905090565b61002f600435602435600082826060610109806101c78339018083600160a060020a0316815260200182815260200192505050604051809103906000f060018054808201808355929350839282908280158290116101845781836000526020600020918201910161018491905b808211156101c157600081558401610127565b60405180806020018281038252838181518152602001915080519060200190602002808383829060006004602084601f0104600f02600301f1509050019250505060405180910390f35b5050508154811015610002579060005260206000209001600050805473ffffffffffffffffffffffffffffffffffffffff19169091179055505050565b5090565b566060604081815280610109833960a090525160805160008054600160a060020a031916909217825560015560d190819061003890396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
+    unlinked_binary: "606060405260008054600160a060020a031916331790556102d0806100246000396000f3606060405260e060020a600035046383197ef08114610031578063b5457e6514610059578063c6b8a8b8146100ba575b005b61002f60005433600160a060020a03908116911614156101c557600054600160a060020a0316ff5b61013a60006060908152600180546020810260a09081016040526080828152929190828280156100b057602002820191906000526020600020905b8154600160a060020a0316815290840190602001808311610094575b5050505050905090565b61002f600435602435600082826060610109806101c78339018083600160a060020a0316815260200182815260200192505050604051809103906000f060018054808201808355929350839282908280158290116101845781836000526020600020918201910161018491905b808211156101c157600081558401610127565b60405180806020018281038252838181518152602001915080519060200190602002808383829060006004602084601f0104600f02600301f1509050019250505060405180910390f35b5050508154811015610002579060005260206000209001600050805473ffffffffffffffffffffffffffffffffffffffff19169091179055505050565b5090565b566060604081815280610109833960a090525160805160008054600160a060020a031916909217825560015560d190819061003890396000f3606060405260e060020a6000350463208f1f998114604257806328a65428146054578063324f1f7d146079578063480e2c3614608357806383197ef014608c575b005b60b2600054600160a060020a03165b90565b6000805473ffffffffffffffffffffffffffffffffffffffff19166004351790556040565b6004356001556040565b60c56001546051565b604060005433600160a060020a039081169116141560cf57600054600160a060020a0316ff5b600160a060020a03166060908152602090f35b6060908152602090f35b56",
+    address: "0x977d28c37d65e9b918d4d734c11a6fadd32064cb",
+    generated_with: "2.0.6",
+    contract_name: "SmartFactory"
+  };
+
+  function Contract() {
+    if (Contract.Pudding == null) {
+      throw new Error("SmartFactory error: Please call load() first before creating new instance of this contract.");
+    }
+
+    Contract.Pudding.apply(this, arguments);
+  };
+
+  Contract.load = function(Pudding) {
+    Contract.Pudding = Pudding;
+
+    Pudding.whisk(contract_data, Contract);
+
+    // Return itself for backwards compatibility.
+    return Contract;
+  }
+
+  Contract.new = function() {
+    if (Contract.Pudding == null) {
+      throw new Error("SmartFactory error: Please call load() first before calling new().");
+    }
+
+    return Contract.Pudding.new.apply(Contract, arguments);
+  };
+
+  Contract.at = function() {
+    if (Contract.Pudding == null) {
+      throw new Error("SmartFactory error: lease call load() first before calling at().");
+    }
+
+    return Contract.Pudding.at.apply(Contract, arguments);
+  };
+
+  Contract.deployed = function() {
+    if (Contract.Pudding == null) {
+      throw new Error("SmartFactory error: Please call load() first before calling deployed().");
+    }
+
+    return Contract.Pudding.deployed.apply(Contract, arguments);
+  };
+
+  if (typeof module != "undefined" && typeof module.exports != "undefined") {
+    module.exports = Contract;
+  } else {
+    // There will only be one version of Pudding in the browser,
+    // and we can use that.
+    window.SmartFactory = Contract;
+  }
+
+})();
+;
+
 
 
 
@@ -5808,45 +5875,30 @@ function addElement(parentId, elementTag, elementId, html) {
     p.appendChild(newElement);
 }
 
-function getSmartContract() {
+function getSmartFactory() {
+  var ABI  = [{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getSmarts","outputs":[{"name":"","type":"address[]"}],"type":"function"},{"constant":false,"inputs":[{"name":"iOwner","type":"address"},{"name":"iVar","type":"uint256"}],"name":"createSmart","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}];
+  
+  var theSmartFactory = web3.eth.contract(ABI).at('0x977d28c37d65e9b918d4d734c11a6fadd32064cb');
+  return theSmartFactory;
+}
+
+function getSmartContract(iAddr) {
   var ABI  = [{"constant":true,"inputs":[],"name":"getMyOwner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"iAdd","type":"address"}],"name":"setMyOwner","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"iVar","type":"uint256"}],"name":"setMyVar","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getMyVar","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}];
   
-  var theSmart = web3.eth.contract(ABI).at('0x8456b53bd716bf085de533bc54683d61f4365795');
+  var theSmart = web3.eth.contract(ABI).at(iAddr);
   return theSmart;
 }
 
-function getSmartAddress() {
-  var theSmart = getSmartContract();
-  var theSmartAddress = theSmart.address;
-  return theSmartAddress;
-};
-
-function getSmartBalance() {
-  var theSmartAddress = getSmartAddress();
-  var theSmartBalance = web3.fromWei(web3.eth.getBalance(theSmartAddress));
-  return theSmartBalance;
-};
-
-function getSmartOwner() {
-  var theSmart = getSmartContract();
-  var theSmartOwner = theSmart.getMyOwner.call();
-  return theSmartOwner;
-};
-
-function getSmartVar() {
-  var theSmart = getSmartContract();
-  var theSmartVar = theSmart.getMyVar.call();
-  return theSmartVar;
-};
-
 function setSmartOwner() {
-  var theSmart = getSmartContract();
+  var theSmartAddr = document.getElementById("iSmartAddress").value;
+  var theSmart = getSmartContract(theSmartAddr);
   var theSmartOwner = document.getElementById("iSmartOwner").value;
   theSmart.setMyOwner.sendTransaction(theSmartOwner, {from: web3.eth.coinbase, gas: 1000000});
 };
 
 function setSmartVar() {
-  var theSmart = getSmartContract();
+  var theSmartAddr = document.getElementById("iSmartAddress").value;
+  var theSmart = getSmartContract(theSmartAddr);
   var theSmartVar = document.getElementById("iSmartVar").value;
   theSmart.setMyVar.sendTransaction(theSmartVar, {from: web3.eth.coinbase, gas: 1000000});  
 };
@@ -5872,19 +5924,44 @@ function refreshBalances() {
   })
 };
 
-window.onload = function() {
-
-  var theSmartAddress = getSmartAddress();
-  var theSmartBalance = getSmartBalance();
-  var theSmartOwner = getSmartOwner();
-  var theSmartVar = getSmartVar();
-
-  $("#theSmartAddress").html(theSmartAddress);
-  $("#theSmartBalance").html(theSmartBalance.toNumber());
-  $("#theSmartOwner").html(theSmartOwner);
-  $("#theSmartVar").html(theSmartVar.toNumber());
-  refreshBalances();
+function refreshContracts() { 
+  var theSmartFactory = getSmartFactory();
+  
+  var i =0;
+  var html;
+  var theSmartAddr;
+  var theSmart;
+  var theSmartOwner;
+  var theSmartBalance;
+  
+  theSmartFactory.getSmarts().forEach( function(e){
     
+    theSmartAddr = theSmartFactory.getSmarts()[i];
+    theSmart = getSmartContract(theSmartAddr);
+    theSmartOwner = theSmart.getMyOwner.call();
+    theSmartVar = theSmart.getMyVar.call();
+    theSmartBalance = web3.fromWei(web3.eth.getBalance(theSmartAddr));
+   
+    html = '<h4>Address: ' + theSmartAddr + '</h4>';
+    html += '<h4>Balance: ' + theSmartBalance + '</h4>';
+    html += '<h4>Owner: ' + theSmartOwner + '</h4>';
+    html += '<h4>Variable: ' + theSmartVar + '</h4>';
+    addElement('smartContracts', 'p', 'smartContrac_' + i, html);
+    i++; 
+    
+  })
+};
+
+function createSmartContract() {
+  var theSmartFactory = getSmartFactory();
+  var theOwner = document.getElementById("iSmartOwnerCreate").value;
+  var theVar = document.getElementById("iSmartVarCreate").value;
+  theSmartFactory.createSmart.sendTransaction(theOwner, theVar, {from: web3.eth.coinbase, gas: 1000000});
+}
+
+window.onload = function() {
+  refreshBalances();
+  refreshContracts();    
 };
 
 
@@ -5910,5 +5987,5 @@ if (typeof web3 !== 'undefined') {
 
 Pudding.setWeb3(window.web3);                                 
 
-Pudding.load([Smart], window);               
+Pudding.load([Smart, SmartFactory], window);               
 

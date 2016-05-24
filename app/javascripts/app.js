@@ -7,45 +7,30 @@ function addElement(parentId, elementTag, elementId, html) {
     p.appendChild(newElement);
 }
 
-function getSmartContract() {
+function getSmartFactory() {
+  var ABI  = [{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getSmarts","outputs":[{"name":"","type":"address[]"}],"type":"function"},{"constant":false,"inputs":[{"name":"iOwner","type":"address"},{"name":"iVar","type":"uint256"}],"name":"createSmart","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}];
+  
+  var theSmartFactory = web3.eth.contract(ABI).at('0x977d28c37d65e9b918d4d734c11a6fadd32064cb');
+  return theSmartFactory;
+}
+
+function getSmartContract(iAddr) {
   var ABI  = [{"constant":true,"inputs":[],"name":"getMyOwner","outputs":[{"name":"","type":"address"}],"type":"function"},{"constant":false,"inputs":[{"name":"iAdd","type":"address"}],"name":"setMyOwner","outputs":[],"type":"function"},{"constant":false,"inputs":[{"name":"iVar","type":"uint256"}],"name":"setMyVar","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getMyVar","outputs":[{"name":"","type":"uint256"}],"type":"function"},{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}];
   
-  var theSmart = web3.eth.contract(ABI).at('0x8456b53bd716bf085de533bc54683d61f4365795');
+  var theSmart = web3.eth.contract(ABI).at(iAddr);
   return theSmart;
 }
 
-function getSmartAddress() {
-  var theSmart = getSmartContract();
-  var theSmartAddress = theSmart.address;
-  return theSmartAddress;
-};
-
-function getSmartBalance() {
-  var theSmartAddress = getSmartAddress();
-  var theSmartBalance = web3.fromWei(web3.eth.getBalance(theSmartAddress));
-  return theSmartBalance;
-};
-
-function getSmartOwner() {
-  var theSmart = getSmartContract();
-  var theSmartOwner = theSmart.getMyOwner.call();
-  return theSmartOwner;
-};
-
-function getSmartVar() {
-  var theSmart = getSmartContract();
-  var theSmartVar = theSmart.getMyVar.call();
-  return theSmartVar;
-};
-
 function setSmartOwner() {
-  var theSmart = getSmartContract();
+  var theSmartAddr = document.getElementById("iSmartAddress").value;
+  var theSmart = getSmartContract(theSmartAddr);
   var theSmartOwner = document.getElementById("iSmartOwner").value;
   theSmart.setMyOwner.sendTransaction(theSmartOwner, {from: web3.eth.coinbase, gas: 1000000});
 };
 
 function setSmartVar() {
-  var theSmart = getSmartContract();
+  var theSmartAddr = document.getElementById("iSmartAddress").value;
+  var theSmart = getSmartContract(theSmartAddr);
   var theSmartVar = document.getElementById("iSmartVar").value;
   theSmart.setMyVar.sendTransaction(theSmartVar, {from: web3.eth.coinbase, gas: 1000000});  
 };
@@ -71,17 +56,42 @@ function refreshBalances() {
   })
 };
 
-window.onload = function() {
-
-  var theSmartAddress = getSmartAddress();
-  var theSmartBalance = getSmartBalance();
-  var theSmartOwner = getSmartOwner();
-  var theSmartVar = getSmartVar();
-
-  $("#theSmartAddress").html(theSmartAddress);
-  $("#theSmartBalance").html(theSmartBalance.toNumber());
-  $("#theSmartOwner").html(theSmartOwner);
-  $("#theSmartVar").html(theSmartVar.toNumber());
-  refreshBalances();
+function refreshContracts() { 
+  var theSmartFactory = getSmartFactory();
+  
+  var i =0;
+  var html;
+  var theSmartAddr;
+  var theSmart;
+  var theSmartOwner;
+  var theSmartBalance;
+  
+  theSmartFactory.getSmarts().forEach( function(e){
     
+    theSmartAddr = theSmartFactory.getSmarts()[i];
+    theSmart = getSmartContract(theSmartAddr);
+    theSmartOwner = theSmart.getMyOwner.call();
+    theSmartVar = theSmart.getMyVar.call();
+    theSmartBalance = web3.fromWei(web3.eth.getBalance(theSmartAddr));
+   
+    html = '<h4>Address: ' + theSmartAddr + '</h4>';
+    html += '<h4>Balance: ' + theSmartBalance + '</h4>';
+    html += '<h4>Owner: ' + theSmartOwner + '</h4>';
+    html += '<h4>Variable: ' + theSmartVar + '</h4>';
+    addElement('smartContracts', 'p', 'smartContrac_' + i, html);
+    i++; 
+    
+  })
+};
+
+function createSmartContract() {
+  var theSmartFactory = getSmartFactory();
+  var theOwner = document.getElementById("iSmartOwnerCreate").value;
+  var theVar = document.getElementById("iSmartVarCreate").value;
+  theSmartFactory.createSmart.sendTransaction(theOwner, theVar, {from: web3.eth.coinbase, gas: 1000000});
+}
+
+window.onload = function() {
+  refreshBalances();
+  refreshContracts();    
 };

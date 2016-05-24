@@ -1,0 +1,1 @@
+[{"constant":false,"inputs":[],"name":"destroy","outputs":[],"type":"function"},{"constant":true,"inputs":[],"name":"getSmarts","outputs":[{"name":"","type":"address[]"}],"type":"function"},{"constant":false,"inputs":[{"name":"iOwner","type":"address"},{"name":"iVar","type":"uint256"}],"name":"createSmart","outputs":[],"type":"function"},{"inputs":[],"type":"constructor"}]

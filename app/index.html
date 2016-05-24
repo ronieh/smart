@@ -9,13 +9,16 @@
 </head>
 <body>
   <hr>
+  <h1>Create Smart Contract</h1>
+  <h3>Owner:<input type="text" id="iSmartOwnerCreate" placeholder="e.g., 0xc9b7966d92af0f35e7ae442c4e58b2d7f97bb13d"></input>
+  <h3>Var:<input type="text" id="iSmartVarCreate" placeholder="e.g., 0xc9b7966d92af0f35e7ae442c4e58b2d7f97bb13d"></input>
+  <button id="send" onclick="createSmartContract()">create</button></h3>
+  <hr>
   <h1>Smart Contract Details</h1>
-  <h3>Address:<span class="black"><span id="theSmartAddress"></span></span></h3>
-  <h3>Balance:<span class="black"><span id="theSmartBalance"></span></span></h3>
-  <h3>Owner:<span class="black"><span id="theSmartOwner"></span></span></h3>
-  <h3>Variable:<span class="black"><span id="theSmartVar"></span></span></h3>
+  <div id="smartContracts"></div>
   <hr>
   <h1>Update Smart Contract Details</h1>
+  <h3>Address:<input type="text" id="iSmartAddress" placeholder="e.g., 0xc9b7966d92af0f35e7ae442c4e58b2d7f97bb13d"></input>
   <h3>Owner:<input type="text" id="iSmartOwner" placeholder="e.g., 0xc9b7966d92af0f35e7ae442c4e58b2d7f97bb13d"></input>
   <button id="send" onclick="setSmartOwner()">set</button></h3>
   <h3>Variable:<input type="number" id="iSmartVar" placeholder="e.g. 1"></input>
